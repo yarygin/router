@@ -1,0 +1,17 @@
+{
+    "name": "yarygin/router",
+    "description": "my test router",
+    "minimum-stability": "dev",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Alex Yarygin",
+            "email": "yarygin.alexander@inbox.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Yarygin\\": "src/"
+        }
+    }
+}
