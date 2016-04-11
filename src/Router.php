@@ -3,6 +3,8 @@
 namespace Yarygin;
 
 use Yarygin\Route;
+use \Yarygin\Exceptions\methodNotAllowedException;
+use \Yarygin\Exceptions\notFoundException;
 
 class Router
 {
@@ -31,12 +33,16 @@ class Router
      */
     public function resolve($method, $path)
     {
-        if (isset($this->routes[$path][$method])) {
-            return $this->routes[$path][$method]();
-        } elseif ($this->routes[$path."/"][$method]) {
-            return $this->routes[$path."/"][$method]();
+        $route_path = $this->preparePath($path);
+        if (isset($this->routes[$route_path])) {
+            if (!isset($this->routes[$route_path][$method])) {
+                throw new methodNotAllowedException;
+            }
+            if (isset($this->routes[$route_path][$method])) {
+                return $this->routes[$route_path][$method]();
+            }
         } else {
-            echo 404;
+            throw new notFoundException;
         }
     }
 
@@ -46,9 +52,19 @@ class Router
      */
     public function register(Route $route)
     {
-        $path = addslashes($route->path);
+        $path = $this->preparePath($route->path);
         $method = $route->method;
         $callback = $route->callback;
         $this->routes[$path][$method] = $callback;
+    }
+
+    /**
+     * Register route
+     * @param Route $route
+     */
+    protected function preparePath($path)
+    {
+        $route_path = rtrim(addslashes($path),"/");
+        return $route_path;
     }
 }

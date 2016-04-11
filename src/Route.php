@@ -15,34 +15,40 @@ class Route implements Interfaces\Route
         $this->apply($method, $path, $callback);
     }
 
-    public function get($path, $callback)
+    public static function get($path, $callback)
     {
-        $this->apply("GET", $path, $callback);
+        $route = new self("GET", $path, $callback);
+        return $route;
     }
 
-    public function post($path, $callback)
+    public static function post($path, $callback)
     {
-        $this->apply("POST", $path, $callback);
+        $route = new self("POST", $path, $callback);
+        return $route;
     }
 
-    public function put($path, $callback)
+    public static function put($path, $callback)
     {
-        $this->apply("PUT", $path, $callback);
+        $route = new self("PUT", $path, $callback);
+        return $route;
     }
 
-    public function delete($path, $callback)
+    public static function delete($path, $callback)
     {
-        $this->apply("DELETE", $path, $callback);
+        $route = new self("DELETE", $path, $callback);
+        return $route;
     }
 
-    public function options($path, $callback)
+    public static function options($path, $callback)
     {
-        $this->apply("OPTIONS", $path, $callback);
+        $route = new self("OPTIONS", $path, $callback);
+        return $route;
     }
 
-    public function patch($path, $callback)
+    public static function patch($path, $callback)
     {
-        $this->apply("GET", $path, $callback);
+        $route = new self("PATCH", $path, $callback);
+        return $route;
     }
 
     public function apply($method, $path, $callback)
